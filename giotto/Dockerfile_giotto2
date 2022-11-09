@@ -1,0 +1,13 @@
+FROM jafoltz/giotto_reticulate:full
+
+
+
+
+
+
+# install R packages
+RUN R --vanilla -e 'install.packages(c("quadprog"), repos = "http://cran.us.r-project.org")'
+
+
+
+

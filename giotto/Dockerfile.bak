@@ -1,0 +1,11 @@
+FROM rocker/ml-verse:4.0.5
+RUN apt-get update && apt-get dist-upgrade -y && apt-get install -y --no-install-recommends libhdf5-dev && apt-get clean all
+# install R packages
+RUN R --vanilla -e 'install.packages(c("remotes", "multinet", "FactoMineR", "RTriangle", "testthat","reticulate"), repos = "http://cran.us.r-project.org")' \
+	&& R --vanilla -e 'remotes::install_github("RubD/Giotto@suite")' \
+	&& R --vanilla -e 'devtools::install_bitbucket("qzhudfci/smfishhmrf-r", ref="master")'\
+	&& R --vanilla -e 'BiocManager::install(c("scran", "MAST", "BiocParallel", "genefilter", "DESeq2"))' \
+	&& R --vanilla -e 'devtools::install_github("xzhoulab/SPARK")' \
+	&& R --vanilla -e 'devtools::install_github("edsgard/trendsceek")' \
+	&& R --vanilla -e 'reticulate::py_install(packages = c("pandas", "networkx", "python-igraph", "leidenalg", "python-louvain", "scikit-learn"))' \
+	&& R --vanilla -e 'install.packages(c("quadprog"), repos = "http://cran.us.r-project.org")'
